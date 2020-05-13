@@ -2,7 +2,7 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from url_shortener import db, create_app
 
-app = create_app(config_file='setting.py')
+app = create_app(config_file='settings.py')
 
 from .models import Link
 migrate = Migrate(app, db)
