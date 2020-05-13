@@ -2,7 +2,7 @@ from flask import Flask
 
 from .extensions import db, migrate
 from .routes import short
-
+from .models import Link
 
 def create_app(config_file='settings.py'):
     app = Flask(__name__)
@@ -13,6 +13,5 @@ def create_app(config_file='settings.py'):
     migrate.init_app(app, db)
     app.register_blueprint(short)
 
-    from . import models
 
     return app
