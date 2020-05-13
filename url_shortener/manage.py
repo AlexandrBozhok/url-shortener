@@ -4,7 +4,7 @@ from url_shortener import db, create_app
 
 app = create_app(config_file='settings.py')
 
-from .models import Link
+from url_shortener.models import Link
 migrate = Migrate(app, db)
 
 
