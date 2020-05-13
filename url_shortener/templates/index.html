@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<head>
+    <title>My aPP</title>
+</head>
+<body>
+    <form method="POST" action="{{ url_for('short.add_link') }}">
+        <input type="text" required placeholder="Original URL" name="original_url">
+        <input type="submit">
+    </form>
+</body>
+</html>
