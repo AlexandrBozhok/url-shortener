@@ -13,4 +13,6 @@ def create_app(config_file='settings.py'):
     migrate.init_app(app, db)
     app.register_blueprint(short)
 
+    from . import models
+
     return app
