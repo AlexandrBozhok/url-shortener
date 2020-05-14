@@ -4,8 +4,13 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-<form method="POST" action="/add_link">
-    <input type="text" required placeholder="Original URL" name="original_url">
-    <input type="submit">
-</form>
+<div class="form-div">
+    <form class="form-inline" method="POST" action="/add_link">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="original_url" class="sr-only">Original URL</label>
+            <input type="text" required class="form-control" id="original_url" name="original_url" placeholder="Original URL">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Shorten!</button>
+    </form>
+</div>
 {% endblock %}
