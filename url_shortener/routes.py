@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Link
 from .extensions import db
 short = Blueprint('short', __name__)
@@ -16,15 +16,25 @@ def redirect_to_url(short_url):
 def index():
     return render_template('index.html')
 
-@short.route('/add_link', methods=['POST'])
+@short.route('/add_link', methods=['GET', 'POST'])
 def add_link():
-    original_url = request.form['original_url']
-    link = Link(original_url=original_url)
-    db.session.add(link)
-    db.session.commit()
-
-    return render_template('link_added.html', 
-        new_link=link.short_url, original_url=link.original_url)
+    if request.method == 'POST':
+        original_url = request.form['original_url']
+        row = db.session.query(Link).filter_by(original_url=original_url).first()
+        if not row:
+            link = Link(original_url=original_url)
+            db.session.add(link)
+            db.session.commit()
+            return render_template('link_added.html', 
+                new_link=link.short_url, original_url=link.original_url)
+            #return redirect(url_for('short.add_link'), code='303')
+        else:
+            return render_template('link_added.html', 
+                new_link=row.short_url, original_url=row.original_url)
+            #return redirect(url_for('short.add_link'), code='303')
+    else:
+        return render_template('link_added.html', new_link=None)
+    
 
 @short.route('/stats')
 def stats():
