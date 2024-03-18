@@ -1,0 +1,44 @@
+version: '3.11'
+
+services:
+  db:
+    image: postgres:16.2
+    container_name: url_shortener_db
+    ports:
+      - "127.0.0.1:5436:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - url-shortener-db-volume:/var/lib/postgresql/data:z
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_NAME}" ]
+      interval: 5s
+      retries: 5
+    restart: always
+    networks:
+      - url_shortener
+  app:
+    build: .
+    container_name: url_shortener_app
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./app:/app
+    command:
+      gunicorn --reload --bind=0.0.0.0:5000 --worker-class=gevent 
+      --workers=2 --max-requests=10 --access-logfile - --error-logfile - main:app
+    restart: always
+    networks:
+      - url_shortener
+
+volumes:
+  url-shortener-db-volume:
+
+networks:
+  url_shortener:
+    driver: bridge

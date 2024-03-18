@@ -1,18 +1,18 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-
-[dev-packages]
+name = "pypi"
 
 [packages]
 flask = "*"
-python-dotenv = "*"
-flask-sqlalchemy = "*"
-flask-migrate = "*"
-psycopg2 = "*"
+alembic = "*"
+pydantic-settings = "*"
+sqlalchemy = "*"
 gunicorn = "*"
-flask-script = "*"
+psycopg2-binary = "*"
+gevent = "*"
+
+[dev-packages]
 
 [requires]
-python_version = "3.7"
+python_version = "3.11"

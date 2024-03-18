@@ -1,5 +1,5 @@
 {% extends "basic_template.html" %}
-{% block title %}forwardinh0.fun - URL shortener{% endblock %}
+{% block title %}URL shortener{% endblock %}
 {% block head %}
     {{ super() }}
 {% endblock %}
@@ -17,7 +17,7 @@
 
             {% if new_link %}
                 <input type="text" readonly required class="form-control" id="short_url" name="short_url" placeholder="Short URL" 
-                    value="{{ url_for('short.redirect_to_url', short_url=new_link, _external=True) }}" style="width: 600px;">
+                    value="{{ url_for('router.redirect_to_own_url', short_url=new_link, _external=True) }}" style="width: 600px;">
             {% else %}
                 <input type="text" readonly required class="form-control" id="short_url" name="short_url" placeholder="Short URL" 
                     value="" style="width: 600px;">
