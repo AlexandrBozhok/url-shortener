@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from config.db import db_session, init_db
 from routers.base import router as base_router
@@ -18,7 +18,12 @@ init_db()
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return '', 404
+    return render_template('error_pages/404.html'), 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('error_pages/500.html'), 500
 
 
 @app.teardown_appcontext
