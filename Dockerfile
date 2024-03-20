@@ -6,12 +6,9 @@ apt-get clean
 
 WORKDIR /app
 
-COPY Pipfile /app
-COPY Pipfile.lock /app
+COPY . .
 
 RUN pip install -U pip \
     && pip install pipenv  \
     && pipenv requirements > requirements.txt \
     && pip install -r requirements.txt
-
-COPY app .
