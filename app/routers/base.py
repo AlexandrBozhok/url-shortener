@@ -47,7 +47,7 @@ def add_link():
             )
         except exc.SQLAlchemyError as e:
             logging.error(f'Error: {e}')
-            return 'Ooops'
+            return 'Ooops', 500
 
     return render_template(
         'link_added.html',
