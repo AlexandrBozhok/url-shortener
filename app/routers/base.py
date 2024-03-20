@@ -1,6 +1,6 @@
 import logging
 
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, abort
 from sqlalchemy import exc
 
 from crud.link import LinkCRUD
@@ -26,7 +26,7 @@ def redirect_to_own_url(short_url: str):
         session=db_session
     )
     if not link_db:
-        return redirect(url_for('router.index'))
+        abort(404)
     return redirect(link_db.original_url)
 
 
@@ -47,7 +47,7 @@ def add_link():
             )
         except exc.SQLAlchemyError as e:
             logging.error(f'Error: {e}')
-            return 'Ooops', 500
+            abort(500)
 
     return render_template(
         'link_added.html',
