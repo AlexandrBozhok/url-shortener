@@ -29,6 +29,7 @@ services:
       - "5000:5000"
     volumes:
       - ./app:/app
+      - ./tests:/app/tests
     command:
       gunicorn --reload --bind=0.0.0.0:5000 --worker-class=gevent 
       --workers=2 --max-requests=10 --access-logfile - --error-logfile - main:app
