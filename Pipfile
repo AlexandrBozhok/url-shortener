@@ -11,6 +11,8 @@ sqlalchemy = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 gevent = "*"
+pytest = "*"
+pytest-mock = "*"
 
 [dev-packages]
 
